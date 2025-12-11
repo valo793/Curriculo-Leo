@@ -88,7 +88,7 @@ export function Navbar() {
             }}
             className="hidden md:inline-flex btn-tech"
           >
-            <span>hire.me()</span>
+            <span>contact.me()</span>
           </a>
 
           {/* Mobile Menu Button */}
@@ -126,7 +126,7 @@ export function Navbar() {
                 }}
                 className="inline-flex btn-tech mt-4"
               >
-                <span>hire.me()</span>
+                <span>contact.me()</span>
               </a>
             </div>
           </div>

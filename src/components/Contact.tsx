@@ -117,7 +117,7 @@ export function Contact() {
             <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
           </a>
           <a
-            href="https://github.com/leonardo-vallim"
+            href="https://github.com/valo793"
             target="_blank"
             rel="noopener noreferrer"
             className="w-14 h-14 flex items-center justify-center bg-card border border-border rounded-xl hover:border-primary hover:shadow-[0_0_20px_rgba(45,212,191,0.3)] transition-all duration-300"
