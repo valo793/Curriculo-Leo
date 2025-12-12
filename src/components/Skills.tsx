@@ -100,7 +100,12 @@ export function Skills() {
           </div>
 
           {/* Education */}
-          <div className="card-tech text-center py-8">
+          <a
+            href="https://unisanta.br/#!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-tech text-center py-8 block hover:border-primary/50 transition-colors"
+          >
             <GraduationCap className="w-10 h-10 text-primary mx-auto mb-4" />
             <span className="font-mono text-xs text-primary block mb-2">formação acadêmica</span>
             <h4 className="text-xl font-semibold text-foreground mb-1">
@@ -109,7 +114,7 @@ export function Skills() {
             <p className="text-muted-foreground">
               Universidade Santa Cecília • 2021-2025
             </p>
-          </div>
+          </a>
         </div>
       </div>
     </section>

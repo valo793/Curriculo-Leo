@@ -13,6 +13,7 @@ const experiences = [
       'Automações de fluxos',
       'Mapeamento e documentação de processos',
     ],
+    link: "https://www.dpworld.com/pt-br/brazil",
     tech: ['Power BI', 'SQL', 'Databricks', 'Automações'],
   },
   {
@@ -26,6 +27,7 @@ const experiences = [
       'Elaboração de fluxos e diagramas técnicos',
       'Levantamento de requisitos de negócio',
     ],
+    link: "https://www.dpworld.com/pt-br/brazil",
     tech: ['Lean Six Sigma', 'BPMN', 'Excel'],
   },
   {
@@ -39,6 +41,7 @@ const experiences = [
       'Desenvolvimento web com HTML/CSS',
       'Análises de tráfego via Google Analytics',
     ],
+    link: "https://www.olos.com.br/?gad_source=1&gad_campaignid=23158136081&gclid=Cj0KCQiA9OnJBhD-ARIsAPV51xNLJYLH1J9jK585Uzk4lbp4XoOvzvwqIHR9slnbrbypV7fArfmIdscaAq02EALw_wcB",
     tech: ['Python', 'SQL', 'HTML/CSS', 'Google Analytics'],
   },
 ];
@@ -86,7 +89,12 @@ export function Experience() {
               </div>
 
               {/* Content Card */}
-              <div className={`card-tech ${exp.current ? 'border-primary/30' : ''}`}>
+              <a
+                href={exp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`card-tech block hover:border-primary/50 transition-colors ${exp.current ? 'border-primary/30' : ''}`}
+              >
                 {/* Header */}
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
                   <div className="flex items-center gap-2">
@@ -126,7 +134,7 @@ export function Experience() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </a>
             </div>
           ))}
         </div>
