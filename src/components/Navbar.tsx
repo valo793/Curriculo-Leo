@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { href: '#about', label: 'about()' },
-  { href: '#services', label: 'services()' },
-  { href: '#experience', label: 'experience()' },
-  { href: '#projects', label: 'projects()' },
-  { href: '#skills', label: 'skills()' },
-  { href: '#contact', label: 'contact()' },
+  { href: '#about', label: '01. LOG' },
+  { href: '#experience', label: '02. STACK' },
+  { href: '#projects', label: '03. PROJECTS' },
+  { href: '#contact', label: '04. CONNECT' },
 ];
 
 export function Navbar() {
@@ -37,14 +36,15 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-background/90 backdrop-blur-xl border-b border-border'
+          ? 'bg-background border-b border-border shadow-sm'
           : 'bg-transparent'
       }`}
     >
-      <nav className="container-wide px-6 md:px-12 lg:px-20">
+      <nav className="container-wide">
         <div className="flex justify-between items-center h-20">
+          
           {/* Logo */}
           <a
             href="#hero"
@@ -52,18 +52,14 @@ export function Navbar() {
               e.preventDefault();
               scrollToSection('#hero');
             }}
-            className="flex items-center gap-2 text-xl font-bold text-foreground hover:text-primary transition-colors duration-300"
+            className="flex items-center text-lg font-bold text-foreground font-mono tracking-tighter"
           >
-            <Terminal className="w-6 h-6 text-primary" />
-            <span className="font-mono">
-              <span className="text-primary">&lt;</span>
-              LVallim
-              <span className="text-primary">/&gt;</span>
-            </span>
+            <span className="bg-foreground text-background px-2 py-1 mr-2">LV</span>
+            ENGINEER_OS
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center h-full">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -72,29 +68,28 @@ export function Navbar() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                className="h-full flex items-center px-6 font-mono text-xs tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-300 border-l border-transparent hover:border-border hover:bg-card/30"
               >
                 {link.label}
               </a>
             ))}
+            
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('#contact');
+              }}
+              className="h-full flex items-center px-6 font-mono text-xs tracking-widest text-background bg-foreground hover:bg-muted-foreground transition-colors duration-300 ml-4"
+            >
+              INITIALIZE_CONTACT
+            </a>
           </div>
-
-          {/* CTA Button */}
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#contact');
-            }}
-            className="hidden md:inline-flex btn-tech"
-          >
-            <span>contact.me()</span>
-          </a>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 text-foreground"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -102,35 +97,42 @@ export function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border">
-            <div className="px-6 py-8 space-y-4">
-              {navLinks.map((link) => (
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden absolute top-20 left-0 right-0 bg-background border-b border-border overflow-hidden"
+            >
+              <div className="flex flex-col py-4">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                    className="px-6 py-4 font-mono text-sm tracking-widest text-muted-foreground border-b border-border/50 hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                ))}
                 <a
-                  key={link.href}
-                  href={link.href}
+                  href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href);
+                    scrollToSection('#contact');
                   }}
-                  className="block font-mono text-muted-foreground hover:text-primary transition-colors py-2"
+                  className="px-6 py-4 font-mono text-sm tracking-widest text-background bg-foreground hover:bg-muted-foreground mt-4 mx-6 text-center"
                 >
-                  {link.label}
+                  INITIALIZE_CONTACT
                 </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('#contact');
-                }}
-                className="inline-flex btn-tech mt-4"
-              >
-                <span>contact.me()</span>
-              </a>
-            </div>
-          </div>
-        )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

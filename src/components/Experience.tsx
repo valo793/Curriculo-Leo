@@ -1,141 +1,140 @@
-import { Calendar, Building2, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const experiences = [
   {
-    company: 'DP World Santos',
-    role: 'Assistente Administrativo',
-    subtitle: 'Data Analytics & Excelência Operacional',
-    period: '2025 – Atual',
+    company: 'DP WORLD SANTOS',
+    role: 'DATA ANALYTICS ASSISTANT',
+    subtitle: 'OPERATIONAL EXCELLENCE',
+    period: '2025 – PRESENT',
     current: true,
     highlights: [
-      'Dashboards e KPIs em Power BI com modelagem DAX',
-      'Consultas SQL avançadas no Databricks (cloud)',
-      'Automações de fluxos',
-      'Mapeamento e documentação de processos',
+      'Dashboards and KPIs in Power BI (DAX)',
+      'Advanced SQL queries in Databricks (Cloud)',
+      'Workflow Automation and Process Mapping',
     ],
     link: "https://www.dpworld.com/pt-br/brazil",
-    tech: ['Power BI', 'SQL', 'Databricks', 'Automações'],
+    tech: ['POWER BI', 'SQL', 'DATABRICKS', 'AUTOMATION'],
   },
   {
-    company: 'DP World Santos',
-    role: 'Estagiário',
-    subtitle: 'Excelência Operacional',
+    company: 'DP WORLD SANTOS',
+    role: 'INTERN',
+    subtitle: 'OPERATIONAL EXCELLENCE',
     period: '2025',
     current: false,
     highlights: [
-      'Mapeamento e otimização de processos',
-      'Elaboração de fluxos e diagramas técnicos',
-      'Levantamento de requisitos de negócio',
+      'Process mapping and optimization',
+      'Technical workflow diagrams',
+      'Business requirements gathering',
     ],
     link: "https://www.dpworld.com/pt-br/brazil",
-    tech: ['Lean Six Sigma', 'BPMN', 'Excel'],
+    tech: ['LEAN SIX SIGMA', 'BPMN', 'EXCEL'],
   },
   {
-    company: 'Olos Tecnologia',
-    role: 'Software Developer',
+    company: 'OLOS TECNOLOGIA',
+    role: 'SOFTWARE DEVELOPER',
     subtitle: '',
     period: '2021 – 2023',
     current: false,
     highlights: [
-      'Manipulação de dados com Python e SQL',
-      'Desenvolvimento web com HTML/CSS',
-      'Análises de tráfego via Google Analytics',
+      'Data manipulation with Python and SQL',
+      'Web development with HTML/CSS',
+      'Traffic analysis via Google Analytics',
     ],
-    link: "https://www.olos.com.br/?gad_source=1&gad_campaignid=23158136081&gclid=Cj0KCQiA9OnJBhD-ARIsAPV51xNLJYLH1J9jK585Uzk4lbp4XoOvzvwqIHR9slnbrbypV7fArfmIdscaAq02EALw_wcB",
-    tech: ['Python', 'SQL', 'HTML/CSS', 'Google Analytics'],
+    link: "https://www.olos.com.br",
+    tech: ['PYTHON', 'SQL', 'HTML/CSS', 'ANALYTICS'],
   },
 ];
 
 export function Experience() {
   return (
-    <section id="experience" className="section-padding bg-background relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+    <section id="experience" className="relative bg-background pt-24 pb-12 border-t border-border overflow-hidden">
       
-      <div className="container-narrow relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="font-mono text-sm text-primary mb-4 block">// experiência</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Jornada <span className="gradient-text">Profissional</span>
-          </h2>
+      {/* Editorial Header */}
+      <div className="container-wide mb-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          <div className="col-span-1 md:col-span-2">
+            <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">
+              03 // LOGS
+            </span>
+          </div>
+          <div className="col-span-1 md:col-span-10">
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground leading-[0.9]">
+              PROFESSIONAL_HISTORY
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-wide relative z-10">
+        {/* Abstract Background Text */}
+        <div className="absolute top-0 right-0 opacity-5 pointer-events-none select-none overflow-hidden">
+          <span className="text-[15vw] font-bold tracking-tighter leading-none">HISTORY</span>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-secondary to-border md:-translate-x-1/2" />
-
+        <div className="border-t border-border mt-8">
           {experiences.map((exp, index) => (
-            <div
-              key={`${exp.company}-${exp.period}`}
-              className={`relative mb-12 last:mb-0 pl-12 md:pl-0 ${
-                index % 2 === 0 ? 'md:pr-[52%]' : 'md:pl-[52%]'
-              }`}
+            <motion.a
+              href={exp.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className={`block border-b border-border py-12 group hover:bg-card/20 transition-colors ${exp.current ? 'bg-card/5' : ''}`}
             >
-              {/* Timeline dot */}
-              <div
-                className={`absolute top-0 left-0 md:left-1/2 w-8 h-8 rounded-full border-2 flex items-center justify-center md:-translate-x-1/2 ${
-                  exp.current 
-                    ? 'bg-primary border-primary shadow-[0_0_20px_rgba(45,212,191,0.5)]' 
-                    : 'bg-card border-border'
-                }`}
-              >
-                {exp.current ? (
-                  <span className="w-2 h-2 bg-primary-foreground rounded-full" />
-                ) : (
-                  <span className="w-2 h-2 bg-muted-foreground rounded-full" />
-                )}
-              </div>
-
-              {/* Content Card */}
-              <a
-                href={exp.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`card-tech block hover:border-primary/50 transition-colors ${exp.current ? 'border-primary/30' : ''}`}
-              >
-                {/* Header */}
-                <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-primary" />
-                    <h3 className="font-semibold text-foreground">{exp.company}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                
+                {/* Timeline / Metadata */}
+                <div className="col-span-1 md:col-span-3 flex flex-col gap-2">
+                  <div className="flex items-center gap-4">
+                    <span className="w-1.5 h-1.5 bg-foreground block rounded-none opacity-50"></span>
+                    <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
+                      {exp.period}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4" />
-                    <span className="font-mono">{exp.period}</span>
-                  </div>
+                  {exp.current && (
+                    <span className="font-mono text-[10px] tracking-widest text-primary uppercase ml-5 mt-2">
+                      [ ACTIVE_NODE ]
+                    </span>
+                  )}
                 </div>
 
-                {/* Role */}
-                <p className="text-primary font-medium mb-1">{exp.role}</p>
-                {exp.subtitle && (
-                  <p className="text-sm text-muted-foreground mb-4">{exp.subtitle}</p>
-                )}
-
-                {/* Highlights */}
-                <ul className="space-y-2 mb-4">
-                  {exp.highlights.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <ArrowRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Role and Company */}
+                <div className="col-span-1 md:col-span-5">
+                  <h3 className="text-2xl font-bold uppercase tracking-tighter text-foreground group-hover:text-primary transition-colors mb-2">
+                    {exp.role}
+                  </h3>
+                  <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mb-6 border-l border-border pl-4">
+                    // {exp.company}
+                    <br />
+                    {exp.subtitle && `// ${exp.subtitle}`}
+                  </div>
+                  <ul className="space-y-2 mb-6 max-w-sm">
+                    {exp.highlights.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground font-mono">
+                        <span className="text-foreground/50 opacity-50">{'>'}</span>
+                        <span className="uppercase tracking-wide">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="col-span-1 md:col-span-4 flex flex-wrap gap-2 content-start">
                   {exp.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-muted text-xs font-mono text-muted-foreground rounded"
+                      className="px-2 py-1 border border-border/50 text-[10px] font-mono text-muted-foreground uppercase tracking-wider"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </a>
-            </div>
+
+              </div>
+            </motion.a>
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Folder } from 'lucide-react';
+import { motion } from 'framer-motion';
 import dashboardImg from '@/assets/project-dashboard.jpg';
 import sqlImg from '@/assets/project-sql.jpg';
 import automationImg from '@/assets/project-automation.jpg';
@@ -6,154 +6,104 @@ import chairImg from '@/assets/gallery-chair.jpg';
 
 const projects = [
   {
-    title: 'Dashboard de Performance',
-    category: 'Power BI',
+    title: 'PERFORMANCE DASHBOARD',
+    category: 'POWER BI',
     image: dashboardImg,
-    description: 'KPIs e métricas operacionais em tempo real para tomada de decisão estratégica.',
-    tech: ['Power BI', 'DAX', 'SQL'],
+    description: 'KPIs AND METRICS IN REAL-TIME FOR STRATEGIC DECISIONS.',
+    tech: ['POWER BI', 'DAX', 'SQL'],
     featured: true,
   },
   {
-    title: 'Pipeline ETL',
-    category: 'Data Engineering',
+    title: 'ETL PIPELINE',
+    category: 'DATA ENG',
     image: sqlImg,
-    description: 'Automação de tratamento e análise de dados em ambiente cloud.',
-    tech: ['Databricks', 'SQL', 'Python'],
+    description: 'AUTOMATED DATA PROCESSING IN CLOUD ENVIRONMENTS.',
+    tech: ['DATABRICKS', 'SQL', 'PYTHON'],
     featured: true,
   },
   {
-    title: 'Automação de Fluxos',
-    category: 'Automation',
+    title: 'FLOW AUTOMATION',
+    category: 'AUTOMATION',
     image: automationImg,
-    description: 'Eliminação de tarefas manuais repetitivas com ganho de produtividade.',
-    tech: ['Automação', 'SharePoint'],
-    featured: false,
+    description: 'BOTTLE-NECK REDUCTION THROUGH REPETITIVE TASK AUTOMATION.',
+    tech: ['AUTOMATION', 'SHAREPOINT'],
+    featured: true,
   },
   {
-    title: 'Process Mapping',
-    category: 'Lean Six Sigma',
+    title: 'PROCESS MAPPING',
+    category: 'LEAN SIX SIGMA',
     image: chairImg,
-    description: 'Documentação e otimização de processos operacionais.',
-    tech: ['BPMN', 'Visio', 'Lean'],
-    featured: false,
+    description: 'DOCUMENTATION AND OPTIMIZATION OF OPERATIONAL FLOWS.',
+    tech: ['BPMN', 'VISIO', 'LEAN'],
+    featured: true,
   },
 ];
 
 export function Projects() {
   return (
-    <section id="projects" className="section-padding bg-card/30 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-bg opacity-20" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+    <section id="projects" className="relative bg-background pt-24 pb-24 border-t border-border overflow-hidden">
       
-      <div className="container-wide relative z-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
-          <div>
-            <span className="font-mono text-sm text-primary mb-4 block">// projetos</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Trabalhos <span className="gradient-text">Selecionados</span>
+      {/* Editorial Header */}
+      <div className="container-wide mb-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          <div className="col-span-1 md:col-span-2">
+            <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">
+              04 // CORE
+            </span>
+          </div>
+          <div className="col-span-1 md:col-span-10 flex border-b border-border pb-8">
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground leading-[0.9]">
+              SELECTED_WORKS
             </h2>
           </div>
-          <p className="text-muted-foreground mt-4 md:mt-0 max-w-md">
-            Projetos que demonstram minhas habilidades em dados, automação e otimização de processos.
-          </p>
         </div>
+      </div>
 
-        {/* Featured Projects */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {projects.filter(p => p.featured).map((project) => (
-            <div
-              key={project.title}
-              className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/50 transition-all duration-500"
-            >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-              </div>
-              
-              {/* Content */}
-              <div className="p-6">
-                <span className="font-mono text-xs text-primary mb-2 block">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-muted text-xs font-mono text-muted-foreground rounded"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                {/* Links */}
-                <div className="flex gap-4">
-                  <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <Github className="w-4 h-4" />
-                    <span>Code</span>
-                  </button>
-                  <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Demo</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Other Projects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.filter(p => !p.featured).map((project) => (
-            <div
-              key={project.title}
-              className="card-tech group"
-            >
-              <div className="flex items-start justify-between mb-4">
-                <Folder className="w-10 h-10 text-primary" />
-                <div className="flex gap-3">
-                  <button className="text-muted-foreground hover:text-primary transition-colors">
-                    <Github className="w-5 h-5" />
-                  </button>
-                  <button className="text-muted-foreground hover:text-primary transition-colors">
-                    <ExternalLink className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-              
-              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                {project.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="font-mono text-xs text-muted-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
+      <div className="container-wide relative z-10">
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
+          {projects.map((project, idx) => (
+             <motion.div 
+               key={idx}
+               initial={{ opacity: 0 }}
+               whileInView={{ opacity: 1 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8, delay: idx * 0.1 }}
+               className="bg-background group relative flex flex-col md:flex-row h-full min-h-[300px]"
+             >
+               {/* Grayscale Architectural Image */}
+               <div className="w-full md:w-1/2 relative overflow-hidden bg-card/50 aspect-square md:aspect-auto">
+                 <div className="absolute inset-0 bg-background/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
+                 <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                 />
+                 <div className="absolute top-4 left-4 z-20">
+                   <span className="bg-background text-foreground font-mono text-[10px] tracking-widest uppercase px-2 py-1">
+                     {project.category}
+                   </span>
+                 </div>
+               </div>
+               
+               {/* Project Metadata */}
+               <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                 <h3 className="text-xl font-bold uppercase tracking-tighter text-foreground mb-4">
+                   {project.title}
+                 </h3>
+                 <p className="font-mono text-xs text-muted-foreground uppercase tracking-wide leading-relaxed mb-8">
+                   {project.description}
+                 </p>
+                 
+                 <div className="flex flex-wrap gap-2 mt-auto">
+                   {project.tech.map((t) => (
+                     <span key={t} className="border border-border text-[9px] font-mono uppercase tracking-widest px-2 py-1 text-muted-foreground">
+                       {t}
+                     </span>
+                   ))}
+                 </div>
+               </div>
+              </motion.div>
           ))}
         </div>
       </div>

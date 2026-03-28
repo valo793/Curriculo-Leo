@@ -1,170 +1,139 @@
-import { useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { BackgroundGridLines, MonolithWireframe } from './ui/SVGElements';
+import { useEffect, useState } from 'react';
 
 export function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [targetExp, setTargetExp] = useState(0);
+
+  // Motion values for the counters
+  const countExp = useMotionValue(0);
+  const countData = useMotionValue(0);
+  const countUptime = useMotionValue(0);
+
+  // Transform values for display
+  const displayExp = useTransform(countExp, (latest) => latest.toFixed(2));
+  const displayData = useTransform(countData, (latest) => Math.round(latest));
+  const displayUptime = useTransform(countUptime, (latest) => Math.round(latest));
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationId: number;
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-    }> = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // Calculando a partir do final de 2025 (ex: 1 de Dezembro de 2025)
+    const startDate = new Date('2025-12-01T00:00:00').getTime();
+    
+    const calculateExperience = () => {
+      const now = new Date().getTime();
+      const diffTime = Math.max(0, now - startDate);
+      const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
+      return diffYears;
     };
 
-    const createParticles = () => {
-      for (let i = 0; i < 80; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-        });
-      }
-    };
+    const target = calculateExperience();
+    setTargetExp(target);
 
-    const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Animate all numbers together over 2.5 seconds
+    const controls = [
+      animate(countExp, target, { duration: 2.5, ease: "easeOut", delay: 0.5 }),
+      animate(countData, 500, { duration: 2.5, ease: "easeOut", delay: 0.5 }),
+      animate(countUptime, 100, { duration: 2.5, ease: "easeOut", delay: 0.5 })
+    ];
 
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(45, 212, 191, 0.5)';
-        ctx.fill();
-
-        // Draw connections
-        particles.slice(i + 1).forEach((p2) => {
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(45, 212, 191, ${0.15 * (1 - dist / 150)})`;
-            ctx.stroke();
-          }
-        });
-      });
-
-      animationId = requestAnimationFrame(drawParticles);
-    };
-
-    resize();
-    createParticles();
-    drawParticles();
-
-    window.addEventListener('resize', resize);
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
+    return () => controls.forEach(anim => anim.stop());
+  }, [countExp, countData, countUptime]);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Particle Background */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0"
-      />
-      
-      {/* Grid Overlay */}
-      <div className="absolute inset-0 grid-bg opacity-30 z-0" />
-      
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background z-0" />
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+    <section id="hero" className="relative min-h-screen flex flex-col justify-end pt-32 pb-16 overflow-hidden bg-background">
+      <BackgroundGridLines />
+      <MonolithWireframe />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        {/* Terminal Header */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-card/50 border border-border rounded-full mb-8 backdrop-blur-sm animate-fade-up">
-          <span className="w-2 h-2 rounded-full bg-red-500" />
-          <span className="w-2 h-2 rounded-full bg-yellow-500" />
-          <span className="w-2 h-2 rounded-full bg-green-500" />
-          <span className="font-mono text-sm text-muted-foreground ml-2">
-            ~/leonardo-vallim
-          </span>
-        </div>
-
-        {/* Main Title */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-up delay-100">
-          <span className="text-foreground">Olá, sou </span>
-          <span className="gradient-text">Leonardo Vallim</span>
-        </h1>
-
-        {/* Typing Effect */}
-        <div className="font-mono text-xl sm:text-2xl text-muted-foreground mb-8 animate-fade-up delay-200">
-          <span className="text-primary">const</span> role = 
-          <span className="text-secondary"> "</span>
-          <span className="text-foreground">Data Engineer & Analytics</span>
-          <span className="text-secondary">"</span>
-          <span className="text-primary animate-pulse">;</span>
-        </div>
-
-        {/* Skills Tags */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10 animate-fade-up delay-300">
-          {['Power BI', 'SQL', 'Python', 'Databricks', 'Automação', 'Lean Six Sigma'].map((skill) => (
-            <span
-              key={skill}
-              className="px-4 py-2 bg-card/50 border border-border rounded-lg font-mono text-sm text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300 backdrop-blur-sm"
-            >
-              {skill}
+      {/* Main Content */}
+      <div className="container-wide relative z-10 w-full flex flex-col items-start justify-end flex-grow pb-12">
+        <div className="flex flex-col max-w-5xl">
+          
+          {/* Status Label */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex items-center gap-4 mb-8"
+          >
+            <div className="w-12 h-[1px] bg-foreground"></div>
+            <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground">
+              Status_Initialized // Current State: Ready
             </span>
-          ))}
-        </div>
+          </motion.div>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up delay-400">
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] transition-all duration-300"
+          {/* Huge Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            className="text-[12vw] sm:text-[8vw] md:text-[6vw] font-bold leading-[0.85] tracking-tighter uppercase text-foreground"
           >
-            <span className="font-mono">viewProjects()</span>
-          </a>
-          <a
-            href="#about"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-tech"
+            Data.
+            <br />
+            <span className="text-secondary-foreground italic pr-4">Analytics.</span>
+            <br />
+            Precision.
+          </motion.h1>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="mt-12 flex flex-col md:flex-row gap-8 items-start md:items-center"
           >
-            <span className="font-mono">learnMore()</span>
-          </a>
+            <div className="border-l border-border pl-6 max-w-sm">
+              <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase leading-relaxed">
+                Transformando dados abstratos em engrenagens de decisão logística e arquitetura corporativa.
+              </p>
+            </div>
+            
+            <div className="flex gap-4">
+              <button className="btn-solid" onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}>
+                Initialize_Projects
+              </button>
+              <button className="btn-outline" onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}>
+                View_Data_Logs
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-6 h-6 text-primary" />
+      {/* KPI Footer Divider */}
+      <div className="border-t border-border mt-auto">
+        <div className="container-wide py-6 relative z-10 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="flex flex-col">
+              <motion.span className="text-3xl font-bold font-mono">{displayExp}</motion.span>
+              <span className="text-[10px] font-mono tracking-widest uppercase text-muted-foreground mt-1">Yrs_Experience</span>
+            </div>
+            
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold font-mono">
+                <motion.span>{displayData}</motion.span>
+                <span className="text-xl">MB+</span>
+              </span>
+              <span className="text-[10px] font-mono tracking-widest uppercase text-muted-foreground mt-1">Daily_Data_Vol</span>
+            </div>
+
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold font-mono">
+                <motion.span>{displayUptime}</motion.span>
+                <span className="text-xl">%</span>
+              </span>
+              <span className="text-[10px] font-mono tracking-widest uppercase text-muted-foreground mt-1">System_Uptime</span>
+            </div>
+
+            <motion.div 
+               initial={{ opacity: 0, y: 10 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.6, delay: 1.1 }}
+               className="flex flex-col md:items-end justify-center h-full"
+            >
+              <span className="text-[10px] font-mono tracking-widest text-muted-foreground">SCROLL_TO_DESCEND ↓</span>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

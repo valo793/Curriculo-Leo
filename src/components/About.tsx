@@ -1,118 +1,92 @@
-import { Code2, User, MapPin, Mail, Briefcase } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { TickerLine } from './ui/SVGElements';
 
 export function About() {
   return (
-    <section id="about" className="section-padding bg-background relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+    <section id="about" className="relative bg-background pt-24 pb-12 overflow-hidden border-t border-border">
       
-      <div className="container-wide relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Code Block / Terminal */}
-          <div className="relative">
-            <div className="terminal-card p-0 overflow-hidden">
-              {/* Terminal Header */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-muted border-b border-border">
-                <span className="w-3 h-3 rounded-full bg-red-500" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500" />
-                <span className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="ml-4 font-mono text-sm text-muted-foreground">about.ts</span>
-              </div>
-              
-              {/* Code Content */}
-              <div className="p-6 font-mono text-sm leading-relaxed">
-                <p className="text-muted-foreground">
-                  <span className="text-secondary">interface</span> <span className="text-primary">Developer</span> {'{'}
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">name:</span> <span className="text-green-400">"Leonardo Vallim"</span>;
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">role:</span> <span className="text-green-400">"Computer Engineer"</span>;
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">focus:</span> <span className="text-green-400">"Data Analytics"</span>;
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">location:</span> <span className="text-green-400">"Santos, SP"</span>;
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">skills:</span> [
-                </p>
-                <p className="pl-8 text-green-400">"Power BI", "SQL", "Python",</p>
-                <p className="pl-8 text-green-400">"Databricks", "Automação"</p>
-                <p className="pl-4">];
-                </p>
-                <p className="pl-4">
-                  <span className="text-muted-foreground">available:</span> <span className="text-primary">true</span>;
-                </p>
-                <p className="text-muted-foreground">{'}'}</p>
-              </div>
-            </div>
-            
-            {/* Floating decorative element */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border border-primary/30 rounded-lg -z-10" />
+      {/* Editorial Header */}
+      <div className="container-wide mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+          <div className="col-span-1 md:col-span-2">
+            <span className="font-mono text-xs text-muted-foreground uppercase tracking-widest">
+              01 // LOG
+            </span>
           </div>
-
-          {/* Content */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Code2 className="w-5 h-5 text-primary" />
-              <span className="font-mono text-sm text-primary">// sobre mim</span>
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Engenheiro com paixão por{' '}
-              <span className="gradient-text">dados e automação</span>
+          <div className="col-span-1 md:col-span-10">
+            <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground leading-[0.9]">
+              SYSTEM.ARCHITECT &
+              <br /> 
+              <span className="text-secondary">DATA.ANALYST</span>
             </h2>
-
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
-              <p>
-                Sou Engenheiro da Computação com foco em <span className="text-primary">Data Analytics</span> e 
-                <span className="text-primary"> Melhoria Contínua</span>. Transformo dados complexos em 
-                insights acionáveis e processos manuais em fluxos automatizados.
-              </p>
-              
-              <p>
-                Na DP World Santos, desenvolvo soluções de BI que impactam decisões estratégicas, 
-                utilizando Power BI, SQL (Databricks) e metodologias Lean Six Sigma.
-              </p>
-            </div>
-
-            {/* Info Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: User, label: 'Nome', value: 'Leonardo Vallim' },
-                { icon: MapPin, label: 'Local', value: 'Santos, SP' },
-                { icon: Mail, label: 'Email', value: 'leonardoramosvallim@gmail.com', small: true },
-                { icon: Briefcase, label: 'Status', value: 'Disponível', highlight: true },
-              ].map((item) => (
-                <div key={item.label} className="flex items-start gap-3 p-3 bg-card/50 rounded-lg border border-border">
-                  <item.icon className="w-4 h-4 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">{item.label}</p>
-                    <p className={`font-medium ${item.small ? 'text-xs' : 'text-sm'} ${item.highlight ? 'text-primary' : 'text-foreground'}`}>
-                      {item.value}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <a
-              href="https://linkedin.com/in/leonardo-vallim"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] transition-all duration-300"
-            >
-              <span className="font-mono">connect()</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
           </div>
         </div>
       </div>
+
+      <div className="container-wide relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border-y border-border flex-col-reverse lg:flex-row">
+          
+          {/* Photo Box */}
+          <div className="col-span-1 lg:col-span-4 border-b lg:border-b-0 lg:border-r border-border p-6 md:p-8 relative flex flex-col items-center justify-center bg-card/5">
+            <div className="w-full aspect-[3/4] bg-muted/20 border border-border flex items-center justify-center relative overflow-hidden group">
+              <span className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
+                [ INSERT_PORTRAIT_HERE ]
+              </span>
+              {/* Para adicionar sua foto, coloque a tag <img src="sua-foto.jpg" /> aqui, cobrindo o width/height full */}
+              
+              <div className="absolute inset-0 border border-foreground/0 group-hover:border-foreground/20 transition-colors duration-500 m-4"></div>
+            </div>
+            
+            <div className="mt-6 w-full flex justify-between items-center">
+              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                SYS_ID: 0x9F4A
+              </span>
+              <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                VERIFIED_OP
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="col-span-1 lg:col-span-8 flex flex-col">
+            <div className="flex-grow p-8 md:p-16 flex flex-col justify-center">
+              <div className="space-y-6 text-foreground font-mono text-sm leading-relaxed max-w-3xl">
+                <p>
+                  Sou Engenheiro da Computação com foco em <span className="text-primary font-bold">Data Analytics</span> e 
+                  <span className="text-primary font-bold"> Melhoria Contínua</span>. Transformo dados complexos em 
+                  insights acionáveis e processos manuais em fluxos automatizados robustos.
+                </p>
+                
+                <p className="text-muted-foreground">
+                  Na DP World Santos, desenvolvo soluções de BI que impactam decisões estratégicas, 
+                  utilizando Power BI, SQL (Databricks) e metodologias Lean Six Sigma. Projetando sistemas que não apenas
+                  processam dados, mas otimizam a arquitetura de negócios inteiros.
+                </p>
+              </div>
+            </div>
+
+            {/* Info Metrics Table */}
+            <div className="grid grid-cols-2 md:grid-cols-4 border-t border-border mt-auto">
+              {[
+                { label: 'NAME', value: 'LEONARDO VALLIM' },
+                { label: 'LOCATION', value: 'SANTOS, SP' },
+                { label: 'ROLE', value: 'DATA ENGINEER' },
+                { label: 'STATUS', value: 'OPERATIONAL', highlight: true },
+              ].map((item, i) => (
+                <div key={item.label} className={`p-4 md:p-6 flex flex-col gap-2 ${i !== 3 ? 'border-r border-border' : ''}`}>
+                  <span className="text-[10px] font-mono tracking-widest text-muted-foreground">{item.label}</span>
+                  <span className={`font-mono text-xs md:text-sm uppercase tracking-wider ${item.highlight ? 'text-primary' : 'text-foreground'}`}>
+                    {item.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <TickerLine text="ENGINEERING CONTINUOUS IMPROVEMENT THROUGH DATA ARCHITECTURE" />
+      
     </section>
   );
 }
